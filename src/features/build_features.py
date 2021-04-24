@@ -22,6 +22,7 @@ def awesome_function(s):
         '<p class="blink"> {} IS AWESOME!!!!! </p>'.format(s)
     )
     display(to_show)
+    print('lololololololol')
 
 
 def remove_invalid_data(path):
@@ -43,6 +44,7 @@ def remove_invalid_data(path):
                       'quality_group',
                       'source_type',
                       'waterpoint_type']
+    print('lalalalalalalal')
 
     df = df[useful_columns]
 
