@@ -45,6 +45,7 @@ def remove_invalid_data(path):
                       'source_type',
                       'waterpoint_type']
     print('lalalalalalalal')
+    # Print(build feature in check-dif, let's see if it's good)
 
     df = df[useful_columns]
 
