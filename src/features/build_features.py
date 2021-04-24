@@ -39,7 +39,6 @@ def remove_invalid_data(path):
                       'population',
                       'construction_year',
                       'extraction_type_class',
-                      'status_group',
                       'management_group',
                       'quality_group',
                       'source_type',
@@ -65,7 +64,7 @@ def remove_invalid_data(path):
         if df[c].dtype == 'object':
             df[c] = df[c].astype('category')
 
-    df.drop('status_group')
+    # df.drop('status_group')
 
     return pd.get_dummies(df)
 
