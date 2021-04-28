@@ -43,8 +43,8 @@ def remove_invalid_data(path):
                       'management_group',
                       'quality_group',
                       'source_type',
-                      'waterpoint_type']
-    print('lalalalalalalal')
+                      'waterpoint_type',
+                      'status_group']
 
     df = df[useful_columns]
 
@@ -66,7 +66,7 @@ def remove_invalid_data(path):
         if df[c].dtype == 'object':
             df[c] = df[c].astype('category')
 
-    # df.drop('status_group')
+    df.drop('status_group')
 
     return pd.get_dummies(df)
 
