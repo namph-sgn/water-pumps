@@ -1,5 +1,7 @@
 import numpy as np
 from numpy.core.fromnumeric import mean
+
+
 def clean_raw_data(df):
     """ Takes a dataframe and performs four steps:
             - Selects columns for modeling
@@ -23,8 +25,8 @@ def clean_raw_data(df):
             df_input[col] = df_input[col].astype("category")
             # print('change col {} format'.format(col))
         if col == 'construction_year':
-            invalid_rows = df_input[col] <=1000
-            valid_mean = df_input.loc[(~invalid_rows) ,col].mean()
+            invalid_rows = df_input[col] <= 1000
+            valid_mean = mean(df_input.loc[(~invalid_rows), col])
             df_input.loc[invalid_rows, col] = valid_mean
             # print('change all construction year less than 1000 to mean')
         if col in zero_is_bad_value:
@@ -35,7 +37,8 @@ def clean_raw_data(df):
             print("Change col {} from -2e-8 to mean".format(col))
 
     return df_input
-    
+
+
 def replace_value_with_grouped_mean(df, value, column, to_groupby):
     """ For a given numeric value (e.g., 0) in a particular column, take the
         mean of column (excluding value) grouped by to_groupby and return that
