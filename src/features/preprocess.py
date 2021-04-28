@@ -1,3 +1,5 @@
+import numpy as np
+from numpy.core.fromnumeric import mean
 def clean_raw_data(df):
     """ Takes a dataframe and performs four steps:
             - Selects columns for modeling
@@ -31,7 +33,7 @@ def clean_raw_data(df):
         if col in other_bad_value:
             df_input = replace_value_with_grouped_mean(df_input, -2e-8, col, 'region')
             print("Change col {} from -2e-8 to mean".format(col))
-            
+
     return df_input
     
 def replace_value_with_grouped_mean(df, value, column, to_groupby):
@@ -47,15 +49,19 @@ def replace_value_with_grouped_mean(df, value, column, to_groupby):
         :returns: The data frame with the invalid values replaced
     """
     df_input = df.copy()
-    invalid_rows = (df_input[column] == value)
+    invalid_rows = (df_input[column].eq(value))
+    print(invalid_rows.eq(True).sum())
 
     # Calculate mean for each region
     group_mean = (df_input[~invalid_rows]
     .groupby(to_groupby)[column]
     .mean())
 
+    print(group_mean)
+
     # Populate region mean for every rows in dataframe
-    mean_values = group_mean[df_input[to_groupby].values].values
+    mean_values = group_mean[df_input[to_groupby].values].fillna(0)
+    print(np.isnan(mean_values).sum())
 
     # put values in invalid rows
     df_input.loc[invalid_rows, column] = mean_values[invalid_rows]
